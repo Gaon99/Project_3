@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         speed = initSpeed;
-        InvokeRepeating("SpeedUp", 3f, 3f); //일정 시간마다 속도 증가
+        InvokeRepeating("SpeedUp", 1f, 1f); //일정 시간마다 속도 증가
     }
     private void Update()
     {
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     {
         if (isDead == false)
         {
-            speed += 0.3f;
+            speed += 1f;
         }
         else CancelInvoke("SpeedUp");
     }

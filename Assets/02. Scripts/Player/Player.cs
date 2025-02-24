@@ -28,9 +28,10 @@ public class Player : MonoBehaviour
     public Sprite normalSprite;  // 원래 스프라이트
     public Sprite slideSprite;   // 슬라이드할 때의 스프라이트
     public Sprite jumpSprite;   // 점프할 때의 스프라이트
-
+    GameManager gameManager;
     void Start()
     {
+        gameManager = GameManager.Instance;
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<BoxCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        forwardSpeed = gameManager.GetSpeedFromGM();
         if (Input.GetKeyDown(KeyCode.Space) && !isSliding && jumpCount < maxJump)
         {
             isFlap = true;
