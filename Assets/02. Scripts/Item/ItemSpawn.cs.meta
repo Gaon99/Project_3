@@ -1,9 +1,10 @@
 fileFormatVersion: 2
-guid: 734c5f669ff5d51459750c1f056d7649
+guid: c6f79fbae4f6e8e479c7c683e30d256c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - itemprefab: {fileID: 352094470144937721, guid: b6fcf9998c12ea54eabe20d9f79872c6, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
