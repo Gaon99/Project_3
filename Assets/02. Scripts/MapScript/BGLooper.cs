@@ -5,7 +5,8 @@ using UnityEngine;
 public class BGLooper : MonoBehaviour
 {
     public int numBgCount = 5;
-    public int obstacleCount = 0;
+    public int obstacleCount = 0; // 장애물 개수
+    
     public Vector3 obstacleLastPosition = Vector3.zero; // 기본 시작 값 = Vector 0
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,7 @@ public class BGLooper : MonoBehaviour
     {
         Debug.Log("Triggered: " + collision.name);
 
-        if (collision.CompareTag("BackGround"))
+        if (collision.CompareTag("Obstacle"))
         {
             float widthOfBgObject = ((BoxCollider2D)collision).size.x;
             Vector3 pos = collision.transform.position;

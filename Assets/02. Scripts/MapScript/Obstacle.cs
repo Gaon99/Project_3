@@ -11,13 +11,15 @@ public class Obstacle : MonoBehaviour
     public float minGap = 6f;
     public float maxGap = 10f;
 
+    [SerializeField] private float minDistance = 4f; // 최소 배치
+    [SerializeField] private float maxDistance = 8f; // 최대 배치
+
     public Transform topObject;
     public Transform bottomObject;
 
-    public float widthPadding = 4f;
-
     public Vector3 SetRandomPlace(Vector3 lastPosition, int obstacleCount)
     {
+        float widthPadding = Random.Range(minDistance, maxDistance);
         float holeSize = Random.Range(minGap, maxGap) / 2f; //3~5f
         topObject.localPosition = new Vector3(0, holeSize);
         bottomObject.localPosition = new Vector3(0, -holeSize);
