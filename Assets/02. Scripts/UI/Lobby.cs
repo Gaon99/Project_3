@@ -17,7 +17,6 @@ public class Lobby : MonoBehaviour
     float firstScore;
     float secondScore;
     float thirdScore;
-    float Currentscore;
 
     private string FirstScoreKey = "FirstScore";
     private string SecondScoreKey = "SecondScore";
@@ -26,7 +25,6 @@ public class Lobby : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Currentscore = PlayerPrefs.GetFloat("CurrentScore");
 
         uiManager = UIManager.Instance;
         _Lobby.GetComponentInChildren<TextMeshProUGUI>();

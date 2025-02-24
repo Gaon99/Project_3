@@ -37,7 +37,6 @@ public class UIManager : MonoBehaviour
         button_ = GetComponent<Button_>();
         RetryBtn?.onClick.AddListener(button_.LoadScene);
         LobbyBtn?.onClick.AddListener(button_.LoadScene);
-
     }
 
     public void CalculateTime(float time, TextMeshProUGUI text) // time을 받아 분 초로 계산
