@@ -6,7 +6,7 @@ public class SpeedItem : ItemManager
 {
     public override void DestroyAfterTime()
     {
-        Invoke("DestoryObject", 1.0f);
+        Invoke("DestroyObject", 1.0f);
     }
 
     public override void RunItem()
