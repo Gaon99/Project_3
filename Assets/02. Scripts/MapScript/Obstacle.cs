@@ -5,8 +5,8 @@ using Random = UnityEngine.Random;
 
 public class Obstacle : MonoBehaviour
 {
-    public float highPosY = 1f;
-    public float lowPosY = -1f;
+    public float highPosY = -1f;
+    public float lowPosY = -2.7f;
 
     public float minGap = 6f;
     public float maxGap = 10f;
