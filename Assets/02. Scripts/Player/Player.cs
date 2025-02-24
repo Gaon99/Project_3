@@ -16,8 +16,8 @@ public class Player : MonoBehaviour
     public int jumpCount = 0;
     public int maxJump = 2; // 최대 점프 2회 제한
     public float slideDuration = 1f; // 슬라이딩 지속시간
-    public float maxHP = 100f;
-    
+    public int health;
+
     bool isSliding = false;
     bool isFlap = false;
     private Vector2 originalColliderSize; // 원래의 콜라이더 크기
@@ -51,6 +51,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         forwardSpeed = gameManager.GetSpeedFromGM();
+        health = gameManager.GetHealthFromGM();
+
         if (Input.GetKeyDown(KeyCode.Space) && !isSliding && jumpCount < maxJump)
         {
             isFlap = true;
@@ -95,9 +97,8 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            maxHP -= 10; // 장애물에 부딪히면 체력 감소
+            gameManager.CollisionObstacle(); // 장애물 충돌 처리
             Debug.Log("충돌");
-            Debug.Log("HP -10");
         }
     }
 
