@@ -5,27 +5,56 @@ using UnityEngine;
 
 public class Lobby : MonoBehaviour
 {
+    UIManager uiManager;
+
     public TextMeshProUGUI FirstScore;
     public TextMeshProUGUI SecondScore;
     public TextMeshProUGUI ThirdScore;
+    public TextMeshProUGUI time;
+
     public GameObject _Lobby;
 
-    private string BestScoreKey = "BestScore";
+    float firstScore;
+    float secondScore;
+    float thirdScore;
+    float Currentscore;
+
+    private string FirstScoreKey = "FirstScore";
     private string SecondScoreKey = "SecondScore";
     private string ThirdScoreKey = "ThirdScore";
 
     // Start is called before the first frame update
     void Start()
     {
+        Currentscore = PlayerPrefs.GetFloat("CurrentScore");
+
+        uiManager = UIManager.Instance;
         _Lobby.GetComponentInChildren<TextMeshProUGUI>();
 
-        int firstScore= PlayerPrefs.GetInt(BestScoreKey);
-        int secondScore = PlayerPrefs.GetInt(SecondScoreKey);
-        int thirdScore = PlayerPrefs.GetInt(ThirdScoreKey); 
-        
-        FirstScore.text = firstScore.ToString();
-        SecondScore.text = secondScore.ToString();
-        ThirdScore.text = thirdScore.ToString();
+        firstScore = PlayerPrefs.GetFloat(FirstScoreKey, 0f);
+        secondScore = PlayerPrefs.GetFloat(SecondScoreKey, 0f);
+        thirdScore = PlayerPrefs.GetFloat(ThirdScoreKey, 0f);
+
+        UpdateText();
+    }
+    private void Update()
+    {
+        float time_ = Time.time;
+        int minutes = Mathf.FloorToInt(time_ / 60); // 전체 시간에서 분을 계산
+        int seconds = Mathf.FloorToInt(time_ % 60); // 남은 초를 계산
+        time.text = string.Format("{0}:{1:00}", minutes, seconds);
+        UpdateText();
 
     }
+
+    private void UpdateText()
+    {
+        uiManager.UpdateValue();
+        uiManager.CalculateTime(firstScore, FirstScore);
+        uiManager.CalculateTime(secondScore, SecondScore);
+        uiManager.CalculateTime(thirdScore, ThirdScore);
+    }
+
 }
+
+
