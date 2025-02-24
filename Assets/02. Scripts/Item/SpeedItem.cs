@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class SpeedItem : ItemManager
 {
+    public float speedUp = 5f; // 아이템을 먹었을 때 증가하는 속도
+
     public override void DestroyAfterTime()
     {
-        Invoke("DestroyObject", 5.0f);
+        Invoke("DestroyObject", 10.0f); // 일정 시간이 지나면 아이템 파괴
     }
-
-    public override void RunItem() //아이템 기능 실행
-    {
-        // 플레이어 속도
-    }
-
     public void DestroyObject()
     {
         Destroy(gameObject);
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-
+            Player player = other.GetComponent<Player>();
+            if (player != null)
+            {
+                player.IncreaseSpeed(speedUp);
+                Destroy(gameObject);
+            }
         }
     }
 }
