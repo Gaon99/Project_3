@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObstacleItem : ItemManager
 {
     public string obstacleTag = "Obstacle";
-    public float destroyRadius = 5f; // 방해물 파괴 범위
+    public float destroyRadius = 2f; // 방해물 파괴 범위
 
     public override void DestroyAfterTime()
     {
