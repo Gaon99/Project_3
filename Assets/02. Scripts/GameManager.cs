@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public float initSpeed = 3f; //Ã³À½¼Óµµ
-    public int initHealth = 3;
+    public float initSpeed = 3f; //Ã³ï¿½ï¿½ï¿½Óµï¿½
     public float speed;
     public int curScore = 0;
     public int maxScore = 0;
@@ -18,7 +17,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+
+        if(gameManager != null && gameManager != this)
         if (gameManager != null && gameManager != this)
+
         {
             Destroy(gameObject);
             return;
@@ -33,7 +35,8 @@ public class GameManager : MonoBehaviour
         health = initHealth;
         Time.timeScale = 1f;
         speed = initSpeed;
-        InvokeRepeating("SpeedUp", 1f, 1f); //ÀÏÁ¤ ½Ã°£¸¶´Ù ¼Óµµ Áõ°¡
+        InvokeRepeating("SpeedUp", 1f, 1f); //ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
+
     }
     private void Update()
     {
@@ -41,7 +44,7 @@ public class GameManager : MonoBehaviour
             curScore += (int)speed;
     }
 
-    public void GameOver() //°ÔÀÓ ¿À¹ö½Ã ÃÖ°í Á¡¼ö °»½Å
+    public void GameOver() //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         if (maxScore < curScore)
         {
@@ -50,13 +53,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    public void Restart() //°ÔÀÓ Àç½ÃÀÛ
+    public void Restart() //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void CollisionObstacle() //Àå¾Ö¹° Ãæµ¹ ½Ã
+    public void CollisionObstacle() //ï¿½ï¿½Ö¹ï¿½ ï¿½æµ¹ ï¿½ï¿½
     {
         health--;
         if (health <= 0)
@@ -66,12 +69,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GetPotion() // Ã¼·Â È¸º¹ ¾ÆÀÌÅÛ È¹µæ ½Ã
+    public void GetPotion() // Ã¼ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ ï¿½ï¿½
     {
         health++;
     }
 
-    public void GetSpeedUp(bool isUp) //¼Óµµ Áõ°¡ È¹µæ ½Ã
+    public void GetSpeedUp(bool isUp) //ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ ï¿½ï¿½
     {
         if (isUp)
         {
@@ -81,30 +84,31 @@ public class GameManager : MonoBehaviour
         {
             TempSpeed(-3f);
         }
-    }
+    } 
+    
 
-    IEnumerator TempSpeed(float sp) //ÀÏÁ¤ ½Ã°£ ÈÄ ¼Óµµ º¹±¸
+    IEnumerator TempSpeed(float sp) //ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         speed += sp;
         yield return new WaitForSeconds(5f);
         speed -= sp;
     }
 
-    void SpeedUp() // »ýÁ¸ ½Ã ¼Óµµ Áõ°¡
+    void SpeedUp() // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         if (isDead == false)
         {
-            speed += 1f;
+            speed += 1f; //Change Speed Temporary
         }
         else CancelInvoke("SpeedUp");
     }
 
-    public float GetSpeedFromGM() //¼Óµµ°ª Àü´Þ
+    public float GetSpeedFromGM() //ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         return speed;
     }
 
-    public int GetHealthFromGM() //Ã¼·Â °ª Àü´Þ
+    public int GetHealthFromGM() //Ã¼ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         return health;
     }
