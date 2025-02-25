@@ -7,7 +7,7 @@ public class Init : MonoBehaviour
 {
     private void Start()
     {
-        Invoke("TransitionScene", 1f);
+        Invoke("TransitionScene",0);
     }
     private void TransitionScene()
     {
