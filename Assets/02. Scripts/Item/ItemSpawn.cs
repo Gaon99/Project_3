@@ -4,26 +4,34 @@ using UnityEngine;
 
 public class ItemSpawn : MonoBehaviour
 {
-    public GameObject itemprefab;
-    public float minX = -6f; // 아이템 생성 최소 거리
-    public float maxX = 6f; // 아이템 생성 최대 거리
-    public float fixedY = 0f; // y는 고정
-    public float minSpawn = 2f; // 아이템 생성 최소 시간
-    public float maxSpawn = 3f; // 아이템 생성 최대 시간
+    public GameObject[] itemPrefabs;
+    public float spawnTime = 3f; // 아이템 생성 주기
+    public float spawnDistance = 5f; //아이템 생성 위치를 플레이어에 맞춤
+    public float fixedY = 0; //일단 y값 고정
+    public Transform player;
 
-    private void Start()
+
+    void Start()
     {
-        Invoke("SpawnItem", Random.Range(minSpawn, maxSpawn)); // 첫 아이템 생성 시간 랜덤
+        // Coroutine을 사용하여 주기적으로 아이템 생성
+        StartCoroutine(SpawnItems());
     }
 
-    private void SpawnItem()
+    IEnumerator SpawnItems()
     {
-        float randomX = Random.Range(minX, maxX);
-        Vector2 SpawnPosition = new Vector2(randomX, fixedY); // 아이템거리 y는 고정
+        while (true)
+        {
+            float spawnX = player.position.x + spawnDistance;
+            Vector2 spawnPosition = new Vector2(spawnX, fixedY);
 
-        Instantiate(itemprefab, SpawnPosition, Quaternion.identity);
+            GameObject randomItem = itemPrefabs[Random.Range(0, itemPrefabs.Length)]; // 랜덤하게 아이템프리팹 생성
 
-        Invoke("SpawnItem", Random.Range(minSpawn, maxSpawn));
+            Instantiate(randomItem, spawnPosition, Quaternion.identity); // 아이템 생성
+            Debug.Log("아이템을 생성합니다.");
 
+            yield return new WaitForSeconds(spawnTime);
+        }
     }
+
+    
 }
