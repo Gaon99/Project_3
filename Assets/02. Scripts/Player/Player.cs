@@ -73,27 +73,27 @@ public class Player : MonoBehaviour
 
         _rigidbody.velocity = velocity;
     }
-    //void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Ground"))
-    //    {
-    //        jumpCount = 0;
-    //        _spriteRenderer.sprite = normalSprite;
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            jumpCount = 0; // 바닥에 닿으면 점프 횟수 초기화
+            _spriteRenderer.sprite = normalSprite; // 원래 스프라이트로 복구
 
-    //    }
+        }
 
 
-    //}
+    }
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Obstacle"))
-    //    {
-    //        maxHP -= 10;
-    //        Debug.Log("�浹");
-    //        Debug.Log("HP -10");
-    //    }
-    //}
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            maxHP -= 10; // 장애물에 부딪히면 체력 감소
+            Debug.Log("충돌");
+            Debug.Log("HP -10");
+        }
+    }
 
     IEnumerator Slide()
     {
