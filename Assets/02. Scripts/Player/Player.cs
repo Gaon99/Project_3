@@ -7,45 +7,52 @@ public class Player : MonoBehaviour
     Rigidbody2D _rigidbody;
     BoxCollider2D _collider;
     SpriteRenderer _spriteRenderer;
+    
 
     public float jumpPower;
     public float forwardSpeed;
     public bool isDead = false;
     float DeathCooldonw = 0f;
     public int jumpCount = 0;
-    public int maxJump = 2;
-    public float slideDuration = 1f;
-    public float maxHP = 100f;
+    public int maxJump = 2; // ÃÖ´ë Á¡ÇÁ 2È¸ Á¦ÇÑ
+    public float slideDuration = 1f; // ½½¶óÀÌµù Áö¼Ó½Ã°£
+    public int health;
 
     bool isSliding = false;
     bool isFlap = false;
-    private Vector2 originalColliderSize;
-    private Vector2 originalColliderOffset;
+    private Vector2 originalColliderSize; // ¿ø·¡ÀÇ Äİ¶óÀÌ´õ Å©±â
+    private Vector2 originalColliderOffset; // ¿ø·¡ÀÇ Äİ¶óÀÌ´õ À§Ä¡
 
-    Vector3 originalScale;
+    Vector3 originalScale;  // ¿ø·¡ÀÇ ½ºÄÉÀÏÀ» ÀúÀåÇÒ º¯¼ö
 
-    public Sprite normalSprite;
-    public Sprite slideSprite;
-    public Sprite jumpSprite;
-
+    public Sprite normalSprite;  // ¿ø·¡ ½ºÇÁ¶óÀÌÆ®
+    public Sprite slideSprite;   // ½½¶óÀÌµåÇÒ ¶§ÀÇ ½ºÇÁ¶óÀÌÆ®
+    public Sprite jumpSprite;   // Á¡ÇÁÇÒ ¶§ÀÇ ½ºÇÁ¶óÀÌÆ®
+    GameManager gameManager;
     void Start()
     {
+        gameManager = GameManager.Instance;
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<BoxCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
+
+        // ¿ø·¡ÀÇ Äİ¶óÀÌ´õ Å©±â ÀúÀå
         originalColliderSize = _collider.size;
         originalColliderOffset = _collider.offset;
 
-
+        // ¿ø·¡ÀÇ ½ºÄÉÀÏ ÀúÀå
         originalScale = transform.localScale;
 
-
+        // ¿ø·¡ÀÇ ½ºÇÁ¶óÀÌÆ® ÀúÀå
         _spriteRenderer.sprite = normalSprite;
     }
 
     void Update()
     {
+        forwardSpeed = gameManager.GetSpeedFromGM();
+        health = gameManager.GetHealthFromGM();
+
         if (Input.GetKeyDown(KeyCode.Space) && !isSliding && jumpCount < maxJump)
         {
             isFlap = true;
@@ -53,7 +60,8 @@ public class Player : MonoBehaviour
             _spriteRenderer.sprite = jumpSprite;
 
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isSliding && jumpCount == 0)
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isSliding && jumpCount == 0) // °øÁß¿¡¼­´Â ½½¶óÀÌµå ºÒ°¡
         {
             StartCoroutine(Slide());
             transform.localScale = new Vector3(3.5f, 1f, 1);
@@ -71,27 +79,26 @@ public class Player : MonoBehaviour
             isFlap = false;
         }
 
-        _rigidbody.velocity = velocity;
+        _rigidbody.velocity = velocity; 
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            jumpCount = 0; // ë°”ë‹¥ì— ë‹¿ìœ¼ë©´ ì í”„ íšŸìˆ˜ ì´ˆê¸°í™”
-            _spriteRenderer.sprite = normalSprite; // ì›ë˜ ìŠ¤í”„ë¼ì´íŠ¸ë¡œ ë³µêµ¬
+            jumpCount = 0; // ¹Ù´Ú¿¡ ´êÀ¸¸é Á¡ÇÁ È½¼ö ÃÊ±âÈ­
+            _spriteRenderer.sprite = normalSprite; // ¿ø·¡ ½ºÇÁ¶óÀÌÆ®·Î º¹±¸
 
         }
 
-
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            maxHP -= 10; // ì¥ì• ë¬¼ì— ë¶€ë”ªíˆë©´ ì²´ë ¥ ê°ì†Œ
-            Debug.Log("ì¶©ëŒ");
-            Debug.Log("HP -10");
+            gameManager.CollisionObstacle(); // Àå¾Ö¹° Ãæµ¹ Ã³¸®
+            Debug.Log("Ãæµ¹");
         }
     }
 
@@ -99,31 +106,28 @@ public class Player : MonoBehaviour
     {
         isSliding = true;
 
-
-        
-        _collider.size = new Vector2(originalColliderSize.x / 2, originalColliderSize.y);
+        // Äİ¶óÀÌ´õ Å©±â ÁÙÀÌ±â (½½¶óÀÌµù È¿°ú)
+        _collider.size = new Vector2(originalColliderSize.x /2 , originalColliderSize.y );
         _collider.offset = new Vector2(originalColliderOffset.x, originalColliderOffset.y - (originalColliderSize.y / 4));
 
-        
+        // ½ºÇÁ¶óÀÌÆ® º¯°æ
         _spriteRenderer.sprite = slideSprite;
 
-        yield return new WaitForSeconds(slideDuration); 
+        yield return new WaitForSeconds(slideDuration); // ÀÏÁ¤ ½Ã°£ ÈÄ ÇØÁ¦
 
-        
+        // ¿ø·¡ Å©±â·Î º¹±Í
         _collider.size = originalColliderSize;
         _collider.offset = originalColliderOffset;
 
-        
+         // ¿ø·¡ ½ºÇÁ¶óÀÌÆ®·Î º¹±¸
         _spriteRenderer.sprite = normalSprite;
 
-        
+        // ¿ø·¡ ½ºÄÉÀÏ·Î º¹±¸
         transform.localScale = originalScale;
 
         isSliding = false;
+
+        
     }
 
-    public void IncreaseSpeed(float speed)
-    {
-        forwardSpeed += speed; // ì•„ì´í…œ ë¨¹ìœ¼ë©´ ì†ë„ì¦ê°€
-    }
 }

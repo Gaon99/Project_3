@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public float initSpeed = 3f; //Ã³À½¼Óµµ
+    public float initSpeed = 3f; //ìµœì´ˆ ì†ë„
+    public int initHealth = 3; //ìµœì´ˆ ì²´ë ¥
     public float speed;
     public int curScore = 0;
     public int maxScore = 0;
-    public int health = 4;
+    public int health;
     bool isDead = false;
 
     static GameManager gameManager;
@@ -17,7 +18,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(gameManager != null && gameManager != this)
+        if (gameManager != null && gameManager != this)
+
         {
             Destroy(gameObject);
             return;
@@ -26,80 +28,80 @@ public class GameManager : MonoBehaviour
         gameManager = this;
         DontDestroyOnLoad(gameObject);
     }
-    
+
     void Start()
     {
+        health = initHealth;
         Time.timeScale = 1f;
         speed = initSpeed;
-        InvokeRepeating("SpeedUp", 3f, 3f); //ÀÏÁ¤ ½Ã°£¸¶´Ù ¼Óµµ Áõ°¡
-    }
-    private void Update()
-    {
-        curScore += (int)speed;
+        InvokeRepeating("SpeedUp", 1f, 1f); //ì£¼ê¸°ì  ì†ë„ ì¦ê°€
+        InvokeRepeating("UpScore", 0.5f, 0.5f);
+
     }
 
-    public void GameOver() //°ÔÀÓ ¿À¹ö½Ã ÃÖ°í Á¡¼ö °»½Å
+    public void GameOver() //íŒ¨ë°° ì‹œ ìµœê³  ì ìˆ˜ ê¸°ë¡
     {
         if (maxScore < curScore)
         {
             maxScore = curScore;
         }
-        speed = 0;
+        Time.timeScale = 0f;
     }
 
-    public void Restart() //°ÔÀÓ Àç½ÃÀÛ
+    public void Restart() //ê²Œì„ ì¬ì‹œì‘
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void CollisionObstacle() //Àå¾Ö¹° Ãæµ¹ ½Ã
+    public void CollisionObstacle() //ì¥ì• ë¬¼ ì¶©ëŒ ì‹œ
     {
+        health--;
         if (health <= 0)
         {
             isDead = true;
+            GameOver();
         }
-        else health--;
-    } 
+    }
 
-    public void GetPotion() // Ã¼·Â È¸º¹ ¾ÆÀÌÅÛ È¹µæ ½Ã
+    public void GetPotion() //ì²´ë ¥ íšŒë³µ ì¶©ëŒ ì‹œ
     {
         health++;
     }
 
-    public void GetSpeedUp(bool isUp) //¼Óµµ Áõ°¡ È¹µæ ½Ã
+    public void GetSpeedUp() //ì†ë„ ì¦ê°€ ì¶©ëŒ ì‹œ
     {
-        if (isUp)
-        {
-            TempSpeed(3f);
-        }
-        else
-        {
-            TempSpeed(-3f);
-        }
+            TempSpeed(5f);
     } 
+    
 
-    IEnumerator TempSpeed(float sp) //ÀÏÁ¤ ½Ã°£ ÈÄ ¼Óµµ º¹±¸
+    public void UpScore()
+    {
+        if (isDead != true)
+            curScore += (int)speed;
+    }
+    IEnumerator TempSpeed(float sp) //ì†ë„ ì¦ê°€ í›„ ì¼ì • ì‹œê°„ì´ ì§€ë‚˜ë©´ ì†ë„ ê°ì†Œ
     {
         speed += sp;
         yield return new WaitForSeconds(5f);
         speed -= sp;
     }
 
-    void SpeedUp() // »ıÁ¸ ½Ã ¼Óµµ Áõ°¡
+    void SpeedUp() // ì†ë„ ì¦ê°€
     {
         if (isDead == false)
         {
-            speed += 0.3f;
+            speed += 1f; //Change Speed Temporary
         }
         else CancelInvoke("SpeedUp");
     }
 
-    public float GetSpeedFromGM() //¼Óµµ°ª Àü´Ş
+    public float GetSpeedFromGM() //ì†ë„ ì „ë‹¬
     {
         return speed;
     }
 
-    public int GetHealthFromGM() //Ã¼·Â °ª Àü´Ş
+    public int GetHealthFromGM() //ì²´ë ¥ ì „ë‹¬
     {
         return health;
     }

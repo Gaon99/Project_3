@@ -22,10 +22,11 @@ public class SpeedItem : ItemManager
             Player player = other.GetComponent<Player>();
             if (player != null)
             {
-                player.IncreaseSpeed(speedUp);
+                GameManager.Instance.GetSpeedUp();
                 Destroy(gameObject);
             }
         }
+       
     }
 
     
