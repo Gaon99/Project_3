@@ -35,12 +35,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         speed = initSpeed;
         InvokeRepeating("SpeedUp", 1f, 1f); //주기적 속도 증가
+        InvokeRepeating("UpScore", 0.5f, 0.5f);
 
-    }
-    private void Update()
-    {
-        if(isDead != true)
-            curScore += (int)speed;
     }
 
     public void GameOver() //패배 시 최고 점수 기록
@@ -73,19 +69,17 @@ public class GameManager : MonoBehaviour
         health++;
     }
 
-    public void GetSpeedUp(bool isUp) //속도 증가 충돌 시
+    public void GetSpeedUp() //속도 증가 충돌 시
     {
-        if (isUp)
-        {
-            TempSpeed(3f);
-        }
-        else
-        {
-            TempSpeed(-3f);
-        }
+            TempSpeed(5f);
     } 
     
 
+    public void UpScore()
+    {
+        if (isDead != true)
+            curScore += (int)speed;
+    }
     IEnumerator TempSpeed(float sp) //속도 증가 후 일정 시간이 지나면 속도 감소
     {
         speed += sp;
