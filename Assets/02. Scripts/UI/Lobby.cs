@@ -10,7 +10,6 @@ public class Lobby : MonoBehaviour
     public TextMeshProUGUI FirstScore;
     public TextMeshProUGUI SecondScore;
     public TextMeshProUGUI ThirdScore;
-    public TextMeshProUGUI time;
 
     public GameObject _Lobby;
 
@@ -37,12 +36,7 @@ public class Lobby : MonoBehaviour
     }
     private void Update()
     {
-        float time_ = Time.time;
-        int minutes = Mathf.FloorToInt(time_ / 60); // 전체 시간에서 분을 계산
-        int seconds = Mathf.FloorToInt(time_ % 60); // 남은 초를 계산
-        time.text = string.Format("{0}:{1:00}", minutes, seconds);
         UpdateText();
-
     }
 
     private void UpdateText()

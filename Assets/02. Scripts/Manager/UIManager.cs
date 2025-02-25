@@ -45,20 +45,20 @@ public class UIManager : MonoBehaviour
         int seconds = Mathf.FloorToInt(time % 60);
         text.text = string.Format("{0}:{1:00}", minutes, seconds);
     }
-    public void UpdateValue()
+    public void UpdateValue() 
     {
-        if (firstScore < Currentscore)
+        if (firstScore < Currentscore)  //최고 기록 갱신 시
         {
             PlayerPrefs.SetFloat("ThirdScore", secondScore);
             PlayerPrefs.SetFloat("SecondScore", firstScore);
             PlayerPrefs.SetFloat("FirstScore", Currentscore);
         }
-        else if (secondScore < Currentscore && firstScore > Currentscore)
+        else if (secondScore < Currentscore && firstScore > Currentscore) // 2등 기록 갱신 시
         {
             PlayerPrefs.SetFloat("ThirdScore", secondScore);
             PlayerPrefs.SetFloat("SecondScore", Currentscore);
         }
-        else if (thirdScore < Currentscore && Currentscore < secondScore)
+        else if (thirdScore < Currentscore && Currentscore < secondScore) // 3등 기록 갱신 시
         {
             PlayerPrefs.SetFloat("ThirdScore", Currentscore);
         }
