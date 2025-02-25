@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public float initSpeed = 3f; //처음속도
+    public int initHealth = 3;
     public float speed;
     public int curScore = 0;
     public int maxScore = 0;
-    public int health = 4;
+    public int health;
     bool isDead = false;
 
     static GameManager gameManager;
@@ -29,13 +30,15 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        health = initHealth;
         Time.timeScale = 1f;
         speed = initSpeed;
         InvokeRepeating("SpeedUp", 1f, 1f); //일정 시간마다 속도 증가
     }
     private void Update()
     {
-        curScore += (int)speed;
+        if(isDead != true)
+            curScore += (int)speed;
     }
 
     public void GameOver() //게임 오버시 최고 점수 갱신
@@ -44,21 +47,23 @@ public class GameManager : MonoBehaviour
         {
             maxScore = curScore;
         }
-        speed = 0;
+        Time.timeScale = 0f;
     }
 
     public void Restart() //게임 재시작
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void CollisionObstacle() //장애물 충돌 시
     {
+        health--;
         if (health <= 0)
         {
             isDead = true;
+            GameOver();
         }
-        else health--;
     }
 
     public void GetPotion() // 체력 회복 아이템 획득 시
