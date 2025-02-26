@@ -1,24 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject HP; // HP Prefab
-
-    private Transform _HP;
-    private List<HP_UI> hpList = new List<HP_UI>();
-    private int lastHealth;
-
-    float firstScore, Currentscore, secondScore, thirdScore;
-
     static UIManager instance;
-
+    public TextMeshProUGUI CurrentScore;
+    public float firstScore, secondScore, thirdScore, currentScore;
     public static UIManager Instance
     {
         get { return instance; }
@@ -29,44 +17,54 @@ public class UIManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject); // 씬이 바뀌어도 유지
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Destroy(gameObject); // 중복된 UIManager 삭제
         }
     }
-
-    /*
-      public void CalculateTime(float time, TextMeshProUGUI text) // time을 받아 분 초로 계산
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        int minutes = Mathf.FloorToInt(time / 60);
-        int seconds = Mathf.FloorToInt(time % 60);
-        text.text = string.Format("{0}:{1:00}", minutes, seconds);
+        if (scene.name == "MapScene") // MapScene에서만 찾기
+        {
+            CurrentScore = GameObject.Find("CurrentScore")?.GetComponent<TextMeshProUGUI>();
+        }
+    }
+    private void Start()
+    {
+        GetValue();
+    }
+    private void Update()
+    {
+        if (CurrentScore != null) CurrentScore.text = GameManager.Instance.curScore.ToString();
     }
 
-    public void UpdateValue() 
+    public void UpdateValue()
     {
-        if (firstScore < Currentscore)  //최고 기록 갱신 시
+        if (firstScore < currentScore)  //최고 기록 갱신 시
         {
             PlayerPrefs.SetFloat("ThirdScore", secondScore);
             PlayerPrefs.SetFloat("SecondScore", firstScore);
-            PlayerPrefs.SetFloat("FirstScore", Currentscore);
+            PlayerPrefs.SetFloat("FirstScore", currentScore);
         }
-        else if (secondScore < Currentscore && firstScore > Currentscore) // 2등 기록 갱신 시
+        else if (secondScore < currentScore && firstScore > currentScore) // 2등 기록 갱신 시
         {
             PlayerPrefs.SetFloat("ThirdScore", secondScore);
-            PlayerPrefs.SetFloat("SecondScore", Currentscore);
+            PlayerPrefs.SetFloat("SecondScore", currentScore);
         }
-        else if (thirdScore < Currentscore && Currentscore < secondScore) // 3등 기록 갱신 시
+        else if (thirdScore < currentScore && currentScore < secondScore) // 3등 기록 갱신 시
         {
-            PlayerPrefs.SetFloat("ThirdScore", Currentscore);
+            PlayerPrefs.SetFloat("ThirdScore", currentScore);
         }
 
+        GetValue();
+    }
+
+    public void GetValue()
+    {
         firstScore = PlayerPrefs.GetFloat("FirstScore");
         secondScore = PlayerPrefs.GetFloat("SecondScore");
         thirdScore = PlayerPrefs.GetFloat("ThirdScore");
     }
-    */
-
-
 }

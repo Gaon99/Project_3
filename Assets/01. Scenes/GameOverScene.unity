@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 46987231}
   - component: {fileID: 46987230}
   m_Layer: 5
-  m_Name: CurrentScore
+  m_Name: CurrentScore_GO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1141,7 +1141,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d798d1b09d15447aa7e96b7ff2f392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: {fileID: 0}
+  currentScore: {fileID: 0}
+  firstScore: 0
+  secondScore: 0
+  thirdScore: 0
 --- !u!4 &1217893344
 Transform:
   m_ObjectHideFlags: 0

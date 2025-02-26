@@ -9,12 +9,12 @@ public class HP_UI : MonoBehaviour
 
     void Start()
     {
-        Image.fillAmount = 0;  // 초기 체력 100%
+        Image.fillAmount = 0;
     }
 
     public void SetHP(float value)
     {
-        StartCoroutine(AnimateHP(value));
+        Image.fillAmount = value;
     }
 
     private IEnumerator AnimateHP(float targetFill)
