@@ -139,7 +139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4459550461088561451}
-  - component: {fileID: 6572399655242310527}
+  - component: {fileID: 8164356280128250059}
   m_Layer: 0
   m_Name: BottomObs
   m_TagString: Untagged
@@ -163,7 +163,7 @@ Transform:
   - {fileID: 4072814612019406778}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6572399655242310527
+--- !u!114 &8164356280128250059
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,6 +175,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38dbebaae439824429a74fdf110da55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistance: 6
-  maxDistance: 10
-  bottomObject: {fileID: 4072814612019406778}
+  lifeTime: 10
