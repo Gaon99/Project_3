@@ -36,10 +36,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        gameStart();
+        GameStart();
     }
 
-    public void gameStart()
+    public void GameStart()
     {
         health = initHealth;
         speed = initSpeed;
