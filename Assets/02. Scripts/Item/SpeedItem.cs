@@ -26,6 +26,7 @@ public class SpeedItem : ItemManager
                 Destroy(gameObject);
             }
         }
+       
     }
 
     
