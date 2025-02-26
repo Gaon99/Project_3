@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isSliding && jumpCount == 0) // 공중에서는 슬라이드 불가
         {
             StartCoroutine(Slide());
-            transform.localScale = new Vector3(3.5f, 1f, 1);
+            transform.localScale = new Vector3(2f, 0.5f, 1);
         }
     }
 

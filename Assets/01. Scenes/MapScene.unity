@@ -319,12 +319,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 875540151923638030, guid: a74862b06e3597748afccce0a483073f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 875540151923638030, guid: a74862b06e3597748afccce0a483073f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 875540151923638030, guid: a74862b06e3597748afccce0a483073f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.238
       objectReference: {fileID: 0}
     - target: {fileID: 875540151923638030, guid: a74862b06e3597748afccce0a483073f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.5
+      value: -2.7
       objectReference: {fileID: 0}
     - target: {fileID: 875540151923638030, guid: a74862b06e3597748afccce0a483073f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -359,8 +367,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1267725821304526681, guid: a74862b06e3597748afccce0a483073f, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267725821304526681, guid: a74862b06e3597748afccce0a483073f, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267725821304526681, guid: a74862b06e3597748afccce0a483073f, type: 3}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267725821304526681, guid: a74862b06e3597748afccce0a483073f, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267725821304526681, guid: a74862b06e3597748afccce0a483073f, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1893579375062403407, guid: a74862b06e3597748afccce0a483073f, type: 3}
       propertyPath: m_Sprite
@@ -522,10 +546,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d798d1b09d15447aa7e96b7ff2f392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentScore: {fileID: 0}
+  CurrentScore: {fileID: 0}
   firstScore: 0
   secondScore: 0
   thirdScore: 0
+  currentScore: 0
 --- !u!4 &1471414154
 Transform:
   m_ObjectHideFlags: 0
