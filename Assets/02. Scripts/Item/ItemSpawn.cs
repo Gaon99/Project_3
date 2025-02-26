@@ -22,7 +22,8 @@ public class ItemSpawn : MonoBehaviour
         while (true)
         {
             float spawnX = player.position.x + spawnDistance;
-            Vector2 spawnPosition = new Vector2(spawnX, fixedY);
+            
+            Vector2 spawnPosition = new Vector2(spawnX, player.position.y);
 
             GameObject randomItem = itemPrefabs[Random.Range(0, itemPrefabs.Length)]; // 랜덤하게 아이템프리팹 생성
 

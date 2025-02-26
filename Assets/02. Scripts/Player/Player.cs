@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public float jumpPower;
     public float forwardSpeed;
     public bool isDead = false;
-    float DeathCooldonw = 0f;
+
     public int jumpCount = 0;
     public int maxJump = 2; // 최대 점프 2회 제한
     public float slideDuration = 1f; // 슬라이딩 지속시간

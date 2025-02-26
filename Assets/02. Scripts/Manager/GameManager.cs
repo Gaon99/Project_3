@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
     public void CollisionObstacle() //장애물 충돌 시
     {
         health--;
+        speed /= 2;
         if (health <= 0)
         {
             isDead = true;
@@ -63,14 +65,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GetPotion() //체력 회복 충돌 시
+    public void GetSpeedUp(float speed) //속도 증가 충돌 시
     {
-        health++;
-    }
-
-    public void GetSpeedUp() //속도 증가 충돌 시
-    {
-            TempSpeed(5f);
+            StartCoroutine(TempSpeed(speed));
     } 
     
 
@@ -82,7 +79,8 @@ public class GameManager : MonoBehaviour
     IEnumerator TempSpeed(float sp) //속도 증가 후 일정 시간이 지나면 속도 감소
     {
         speed += sp;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
+        Debug.Log("속도 감소");
         speed -= sp;
     }
 
