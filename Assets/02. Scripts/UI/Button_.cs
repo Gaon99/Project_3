@@ -6,10 +6,6 @@ using UnityEngine.UI;  // UI 요소를 사용할 때 UnityEngine.UI 필요
 
 public class Button_ : MonoBehaviour
 {
-    private Button RetryBtn;
-    private Button LobbyBtn;
-    private Button LobbyPlayBtn;
-
     private void Awake()
     {
         InitButton("RetryBtn", "MapScene");
