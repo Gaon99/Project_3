@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,9 +11,11 @@ public class GameManager : MonoBehaviour
     public int initHealth = 3; //최초 체력
     public float speed;
     public int curScore = 0;
-    public int maxScore = 0;
     public int health;
     bool isDead = false;
+
+    string gameOverScene = "GameOverScene";
+
 
     static GameManager gameManager;
     public static GameManager Instance { get { return gameManager; } }
@@ -31,36 +35,29 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        health = initHealth;
-        Time.timeScale = 1f;
-        speed = initSpeed;
-        InvokeRepeating("SpeedUp", 1f, 1f); //주기적 속도 증가
-
+        gameStart();
     }
-    private void Update()
+
+    public void gameStart()
     {
-        if(isDead != true)
-            curScore += (int)speed;
+        health = initHealth;
+        speed = initSpeed;
+        curScore = 0;
+        isDead = false;
+
+        InvokeRepeating("SpeedUp", 1f, 1f); //주기적 속도 증가
+        InvokeRepeating("UpScore", 0.5f, 0.5f);
     }
 
     public void GameOver() //패배 시 최고 점수 기록
     {
-        if (maxScore < curScore)
-        {
-            maxScore = curScore;
-        }
-        Time.timeScale = 0f;
-    }
-
-    public void Restart() //게임 재시작
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(gameOverScene);
     }
 
     public void CollisionObstacle() //장애물 충돌 시
     {
         health--;
+        speed /= 2;
         if (health <= 0)
         {
             isDead = true;
@@ -68,28 +65,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GetPotion() //체력 회복 충돌 시
+    public void GetSpeedUp(float speed) //속도 증가 충돌 시
     {
-        health++;
+        StartCoroutine(TempSpeed(speed));
     }
 
-    public void GetSpeedUp(bool isUp) //속도 증가 충돌 시
-    {
-        if (isUp)
-        {
-            TempSpeed(3f);
-        }
-        else
-        {
-            TempSpeed(-3f);
-        }
-    } 
-    
 
+    public void UpScore()
+    {
+        if (isDead != true)
+            curScore += (int)speed;
+    }
     IEnumerator TempSpeed(float sp) //속도 증가 후 일정 시간이 지나면 속도 감소
     {
         speed += sp;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
+        Debug.Log("속도 감소");
         speed -= sp;
     }
 
@@ -110,5 +101,10 @@ public class GameManager : MonoBehaviour
     public int GetHealthFromGM() //체력 전달
     {
         return health;
+    }
+
+    public int GetScore()
+    {
+        return curScore;
     }
 }
