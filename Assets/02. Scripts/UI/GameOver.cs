@@ -17,7 +17,7 @@ public class GameOver : MonoBehaviour
         // 인게임 스코어
 
         float Score = PlayerPrefs.GetFloat(CurrentScoreKey);
-        uiManager.CalculateTime(Score, CurrentScore);
+        //uiManager.CalculateTime(Score, CurrentScore);
     }
 
     public void Gameover()

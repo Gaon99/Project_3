@@ -32,20 +32,20 @@ public class Lobby : MonoBehaviour
         secondScore = PlayerPrefs.GetFloat(SecondScoreKey, 0f);
         thirdScore = PlayerPrefs.GetFloat(ThirdScoreKey, 0f);
 
-        UpdateText();
+        //UpdateText();
     }
-    private void Update()
-    {
-        UpdateText();
-    }
+    //private void Update()
+    //{
+        //UpdateText();
+    //}
 
-    private void UpdateText()
-    {
-        uiManager.UpdateValue();
-        uiManager.CalculateTime(firstScore, FirstScore);
-        uiManager.CalculateTime(secondScore, SecondScore);
-        uiManager.CalculateTime(thirdScore, ThirdScore);
-    }
+    //private void UpdateText()
+    //{
+    //    uiManager.UpdateValue();
+    //    uiManager.CalculateTime(firstScore, FirstScore);
+    //    uiManager.CalculateTime(secondScore, SecondScore);
+    //    uiManager.CalculateTime(thirdScore, ThirdScore);
+    //}
 
 }
 

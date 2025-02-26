@@ -211,6 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d798d1b09d15447aa7e96b7ff2f392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HP: {fileID: 2154617461223672682, guid: ee9385f3bdd5e904d87f52dce3a88fb5, type: 3}
 --- !u!1 &1528328604
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,9 +334,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initSpeed: 3
+  initHealth: 3
   speed: 0
   curScore: 0
-  maxScore: 0
   health: 4
 --- !u!4 &1616453913
 Transform:
