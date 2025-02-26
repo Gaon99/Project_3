@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
+
 public class GameManager : MonoBehaviour
 {
     public float initSpeed = 3f; //최초 속도
@@ -36,9 +37,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gameStart();
-        InvokeRepeating("SpeedUp", 1f, 1f); //주기적 속도 증가
-        InvokeRepeating("UpScore", 0.5f, 0.5f);
-
     }
 
     public void gameStart()
@@ -47,6 +45,9 @@ public class GameManager : MonoBehaviour
         speed = initSpeed;
         curScore = 0;
         isDead = false;
+
+        InvokeRepeating("SpeedUp", 1f, 1f); //주기적 속도 증가
+        InvokeRepeating("UpScore", 0.5f, 0.5f);
     }
 
     public void GameOver() //패배 시 최고 점수 기록
@@ -67,9 +68,9 @@ public class GameManager : MonoBehaviour
 
     public void GetSpeedUp(float speed) //속도 증가 충돌 시
     {
-            StartCoroutine(TempSpeed(speed));
-    } 
-    
+        StartCoroutine(TempSpeed(speed));
+    }
+
 
     public void UpScore()
     {
