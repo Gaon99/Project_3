@@ -372,7 +372,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1267725821304526681, guid: a74862b06e3597748afccce0a483073f, type: 3}
       propertyPath: m_Size.y
-      value: 1
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267725821304526681, guid: a74862b06e3597748afccce0a483073f, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1267725821304526681, guid: a74862b06e3597748afccce0a483073f, type: 3}
       propertyPath: m_IsTrigger
@@ -404,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 920748667}
     - target: {fileID: 8030329903407703154, guid: a74862b06e3597748afccce0a483073f, type: 3}
       propertyPath: m_Constraints
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -802,7 +806,7 @@ Animator:
   m_GameObject: {fileID: 1578385079}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 59ea445229f9e814696fdf69a4730fbd, type: 2}
+  m_Controller: {fileID: 9100000, guid: e15d84dc311f9a7409055094197113eb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
