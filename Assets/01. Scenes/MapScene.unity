@@ -231,14 +231,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1279939404691539943, guid: 295741057489dd447bef9468ae77092a, type: 3}
-      propertyPath: m_TagString
-      value: Ground
-      objectReference: {fileID: 0}
-    - target: {fileID: 3558776013810719999, guid: 295741057489dd447bef9468ae77092a, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 3558776013810719999, guid: 295741057489dd447bef9468ae77092a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0166
@@ -279,6 +271,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4798746645737121211, guid: 295741057489dd447bef9468ae77092a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 485961791}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -344,6 +340,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4798746645737121211, guid: 295741057489dd447bef9468ae77092a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 485961791}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

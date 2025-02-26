@@ -3,7 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BGLooper : MonoBehaviour
-{/*
+{
+    public Transform player; // 플레이어 위치
+    public float groundWidth = 10f; //넓이
+    private Vector3 startPosition;
+    void Start()
+    {
+        startPosition = transform.position;
+    }
+
+    void Update()
+    {
+        //현재 위치보다 더 멀리 가면
+        if (player.position.x > transform.position.x + (2* groundWidth / 3))
+        {
+            transform.position += new Vector3(groundWidth * 2, 0, 0);
+        }
+    }
+    /*
     public int numBgCount = 5;
     public int obstacleCount = 0; // 장애물 개수
     
@@ -42,4 +59,5 @@ public class BGLooper : MonoBehaviour
         }
     }
     */
+
 }
