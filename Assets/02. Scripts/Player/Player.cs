@@ -20,6 +20,11 @@ public class Player : MonoBehaviour
 
     bool isSliding = false;
     bool isFlap = false;
+
+    private float damageCooldown = 1f; // 데미지를 받을 간격
+    private float lastDamageTime = 0f;
+
+
     private Vector2 originalColliderSize; // 원래의 콜라이더 크기
     private Vector2 originalColliderOffset; // 원래의 콜라이더 위치
 
@@ -93,14 +98,28 @@ public class Player : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Obstacle"))
+    //    {
+    //        gameManager.CollisionObstacle();
+    //        Debug.Log("충돌");
+    //    }
+    //}
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            gameManager.CollisionObstacle(); // 장애물 충돌 처리
-            Debug.Log("충돌");
+            if (Time.time - lastDamageTime > damageCooldown)
+            {
+                gameManager.CollisionObstacle();
+                lastDamageTime = Time.time; // 마지막 피해 시간 기록
+            }
         }
     }
+
+
 
     IEnumerator Slide()
     {
