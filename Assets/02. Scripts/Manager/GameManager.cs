@@ -81,7 +81,6 @@ public class GameManager : MonoBehaviour
     {
         speed += sp;
         yield return new WaitForSeconds(3f);
-        Debug.Log("속도 감소");
         speed -= sp;
     }
 

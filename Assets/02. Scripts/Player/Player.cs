@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -20,9 +21,8 @@ public class Player : MonoBehaviour
 
     bool isSliding = false;
     bool isFlap = false;
-
+    bool isCollide = false;
     private float damageCooldown = 1f; // 데미지를 받을 간격
-    private float lastDamageTime = 0f;
 
 
     private Vector2 originalColliderSize; // 원래의 콜라이더 크기
@@ -95,23 +95,35 @@ public class Player : MonoBehaviour
             jumpCount = 0; // 바닥에 닿으면 점프 횟수 초기화
             animator.SetBool(IsJumping, false);
         }
-
         
     }
 
     
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            if (Time.time - lastDamageTime > damageCooldown)
+            if (!isCollide)
             {
+                isCollide = true;
                 gameManager.CollisionObstacle();
-                lastDamageTime = Time.time; // 마지막 피해 시간 기록
+                StartCoroutine(Collide());
             }
+ //           Debug.Log(collision.gameObject.name);
         }
     }
 
+    IEnumerator Collide()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        Color newColor = sr.color;
+        newColor.a = 0.5f;
+        sr.color = newColor;
+        yield return new WaitForSeconds(damageCooldown);
+        isCollide = false;
+        newColor.a = 1f;
+        sr.color = newColor;
+    }
 
 
     IEnumerator Slide()
