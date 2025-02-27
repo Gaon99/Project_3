@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;  // UI ¿ä¼Ò¸¦ »ç¿ëÇÒ ¶§ UnityEngine.UI ÇÊ¿ä
+using UnityEngine.UI;  // UI ï¿½ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ UnityEngine.UI ï¿½Ê¿ï¿½
 
 public class Button_ : MonoBehaviour
 {
+    private void Awake()
 
-    private void Awake() // ¹öÆ° ÃÊ±âÈ­
     {
         InitButton("RetryBtn", "MapScene");
         InitButton("LobbyBtn", "LobbyScene");
@@ -25,7 +25,7 @@ public class Button_ : MonoBehaviour
 
         if (btn != null)
         {
-            btn.onClick.AddListener(() => LoadScene(SceneValue)); //LoadScene()¸¦ ÅëÇØ ¾À ÀÌµ¿
+            btn.onClick.AddListener(() => LoadScene(SceneValue)); //LoadScene()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìµï¿½
         }
         return btn;
     }

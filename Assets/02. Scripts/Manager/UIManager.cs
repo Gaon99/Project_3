@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     {
         if (scene.name == "MapScene") // MapScene에서만 찾기
         {
+            GameManager.Instance.GameStart();
             CurrentScore = GameObject.Find("CurrentScore")?.GetComponent<TextMeshProUGUI>();
             GameManager.Instance.GameStart();
             if (HPManager.Instance != null)
@@ -54,6 +55,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateValue()
     {
+        currentScore = GameManager.Instance.curScore;
+
         if (firstScore < currentScore)  //최고 기록 갱신 시
         {
             PlayerPrefs.SetFloat("ThirdScore", secondScore);
