@@ -5,46 +5,25 @@ using UnityEngine;
 
 public class Lobby : MonoBehaviour
 {
-    UIManager uiManager;
-
     public TextMeshProUGUI FirstScore;
     public TextMeshProUGUI SecondScore;
     public TextMeshProUGUI ThirdScore;
 
     public GameObject _Lobby;
 
-    float firstScore;
-    float secondScore;
-    float thirdScore;
 
-    private string FirstScoreKey = "FirstScore";
-    private string SecondScoreKey = "SecondScore";
-    private string ThirdScoreKey = "ThirdScore";
-
-    // Start is called before the first frame update
     void Start()
     {
-
-        uiManager = UIManager.Instance;
-        _Lobby.GetComponentInChildren<TextMeshProUGUI>();
-
-        firstScore = PlayerPrefs.GetFloat(FirstScoreKey, 0f);
-        secondScore = PlayerPrefs.GetFloat(SecondScoreKey, 0f);
-        thirdScore = PlayerPrefs.GetFloat(ThirdScoreKey, 0f);
-
-        UpdateText();
-    }
-    private void Update()
-    {
+        UIManager.Instance.GetValue();
         UpdateText();
     }
 
-    private void UpdateText()
+    private void UpdateText() // UIManager가 가지고 있는 점수 업데이트
     {
-        uiManager.UpdateValue();
-        uiManager.CalculateTime(firstScore, FirstScore);
-        uiManager.CalculateTime(secondScore, SecondScore);
-        uiManager.CalculateTime(thirdScore, ThirdScore);
+        UIManager.Instance.UpdateValue();
+        FirstScore.text = UIManager.Instance.firstScore.ToString();
+        SecondScore.text = UIManager.Instance.secondScore.ToString();
+        ThirdScore.text = UIManager.Instance.thirdScore.ToString();
     }
 
 }

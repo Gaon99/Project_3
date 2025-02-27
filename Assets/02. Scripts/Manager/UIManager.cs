@@ -1,20 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
+ï»¿using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    Button_ button_;
-    Button RetryBtn;
-    Button LobbyBtn;
     static UIManager instance;
-
-    float firstScore, Currentscore, secondScore, thirdScore;
+    public TextMeshProUGUI CurrentScore;
+    public float firstScore, secondScore, thirdScore, currentScore;
     public static UIManager Instance
     {
         get { return instance; }
@@ -24,45 +16,68 @@ public class UIManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // ¾ÀÀÌ ¹Ù²î¾îµµ À¯Áö
+            DontDestroyOnLoad(gameObject); // ì”¬ì´ ë°”ë€Œì–´ë„ ìœ ì§€
+            SceneManager.sceneLoaded += OnSceneLoaded; // ì”¬ì´ ë¡œë“œ ë ë•Œë§ˆë‹¤ OnSceneLoaded() ë™ì‘
+            if (HPManager.Instance != null)
+            {
+                HPManager.Instance.FindCanvas();
+                HPManager.Instance.CreateHPUI(); // HP UI ì¬ìƒì„±
+            }
         }
         else
         {
-            Destroy(gameObject); // Áßº¹µÈ UIManager »èÁ¦
+            Destroy(gameObject); // ì¤‘ë³µëœ UIManager ì‚­ì œ
         }
     }
-
-    void Start()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        button_ = GetComponent<Button_>();
-        RetryBtn?.onClick.AddListener(button_.LoadScene);
-        LobbyBtn?.onClick.AddListener(button_.LoadScene);
+        if (scene.name == "MapScene") // MapSceneì—ì„œë§Œ ì°¾ê¸°
+        {
+            GameManager.Instance.GameStart();
+            CurrentScore = GameObject.Find("CurrentScore")?.GetComponent<TextMeshProUGUI>();
+            GameManager.Instance.GameStart();
+            if (HPManager.Instance != null)
+            {
+                HPManager.Instance.FindCanvas();
+                HPManager.Instance.CreateHPUI(); // HP UI ì¬ìƒì„±
+            }
+
+        }
+    }
+    private void Start()
+    {
+        GetValue();
+    }
+    private void Update()
+    {
+        if (CurrentScore != null) CurrentScore.text = GameManager.Instance.curScore.ToString(); //CurrentScoreê°€ nullì´ ì•„ë‹ë•Œë§Œ ì—…ë°ì´íŠ¸
     }
 
-    public void CalculateTime(float time, TextMeshProUGUI text) // timeÀ» ¹Ş¾Æ ºĞ ÃÊ·Î °è»ê
+    public void UpdateValue()
     {
-        int minutes = Mathf.FloorToInt(time / 60);
-        int seconds = Mathf.FloorToInt(time % 60);
-        text.text = string.Format("{0}:{1:00}", minutes, seconds);
-    }
-    public void UpdateValue() 
-    {
-        if (firstScore < Currentscore)  //ÃÖ°í ±â·Ï °»½Å ½Ã
+        currentScore = GameManager.Instance.curScore;
+
+        if (firstScore < currentScore)  //ìµœê³  ê¸°ë¡ ê°±ì‹  ì‹œ
         {
             PlayerPrefs.SetFloat("ThirdScore", secondScore);
             PlayerPrefs.SetFloat("SecondScore", firstScore);
-            PlayerPrefs.SetFloat("FirstScore", Currentscore);
+            PlayerPrefs.SetFloat("FirstScore", currentScore);
         }
-        else if (secondScore < Currentscore && firstScore > Currentscore) // 2µî ±â·Ï °»½Å ½Ã
+        else if (secondScore < currentScore && firstScore > currentScore) // 2ë“± ê¸°ë¡ ê°±ì‹  ì‹œ
         {
             PlayerPrefs.SetFloat("ThirdScore", secondScore);
-            PlayerPrefs.SetFloat("SecondScore", Currentscore);
+            PlayerPrefs.SetFloat("SecondScore", currentScore);
         }
-        else if (thirdScore < Currentscore && Currentscore < secondScore) // 3µî ±â·Ï °»½Å ½Ã
+        else if (thirdScore < currentScore && currentScore < secondScore) // 3ë“± ê¸°ë¡ ê°±ì‹  ì‹œ
         {
-            PlayerPrefs.SetFloat("ThirdScore", Currentscore);
+            PlayerPrefs.SetFloat("ThirdScore", currentScore);
         }
 
+        GetValue();
+    }
+
+    public void GetValue() // 1,2,3ë“± ê¸°ë¡ ìµœì‹ í™”
+    {
         firstScore = PlayerPrefs.GetFloat("FirstScore");
         secondScore = PlayerPrefs.GetFloat("SecondScore");
         thirdScore = PlayerPrefs.GetFloat("ThirdScore");

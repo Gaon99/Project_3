@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -20,9 +21,8 @@ public class Player : MonoBehaviour
 
     bool isSliding = false;
     bool isFlap = false;
-
+    bool isCollide = false;
     private float damageCooldown = 1f; // 데미지를 받을 간격
-    private float lastDamageTime = 0f;
 
 
     private Vector2 originalColliderSize; // 원래의 콜라이더 크기
@@ -30,16 +30,19 @@ public class Player : MonoBehaviour
 
     Vector3 originalScale;  // 원래의 스케일을 저장할 변수
 
-    public Sprite normalSprite;  // 원래 스프라이트
-    public Sprite slideSprite;   // 슬라이드할 때의 스프라이트
-    public Sprite jumpSprite;   // 점프할 때의 스프라이트
+
     GameManager gameManager;
+    Animator animator;
+
+    private static readonly int IsJumping = Animator.StringToHash("IsJump");
+    private static readonly int IsSliding = Animator.StringToHash("IsSlide");
     void Start()
     {
         gameManager = GameManager.Instance;
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<BoxCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
 
         // 원래의 콜라이더 크기 저장
@@ -49,8 +52,7 @@ public class Player : MonoBehaviour
         // 원래의 스케일 저장
         originalScale = transform.localScale;
 
-        // 원래의 스프라이트 저장
-        _spriteRenderer.sprite = normalSprite;
+       
     }
 
     void Update()
@@ -62,14 +64,14 @@ public class Player : MonoBehaviour
         {
             isFlap = true;
             jumpCount++;
-            _spriteRenderer.sprite = jumpSprite;
-
+            animator.SetBool(IsJumping, true);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isSliding && jumpCount == 0) // 공중에서는 슬라이드 불가
         {
             StartCoroutine(Slide());
-            transform.localScale = new Vector3(3.5f, 1f, 1);
+            transform.localScale = new Vector3(1f, 1f, 1f);
+            animator.SetBool(IsSliding, true);
         }
     }
 
@@ -91,34 +93,37 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             jumpCount = 0; // 바닥에 닿으면 점프 횟수 초기화
-            _spriteRenderer.sprite = normalSprite; // 원래 스프라이트로 복구
-
+            animator.SetBool(IsJumping, false);
         }
-
         
     }
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Obstacle"))
-    //    {
-    //        gameManager.CollisionObstacle();
-    //        Debug.Log("충돌");
-    //    }
-    //}
-
-    private void OnTriggerStay2D(Collider2D collision)
+    
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            if (Time.time - lastDamageTime > damageCooldown)
+            if (!isCollide)
             {
+                isCollide = true;
                 gameManager.CollisionObstacle();
-                lastDamageTime = Time.time; // 마지막 피해 시간 기록
+                StartCoroutine(Collide());
             }
+ //           Debug.Log(collision.gameObject.name);
         }
     }
 
+    IEnumerator Collide()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        Color newColor = sr.color;
+        newColor.a = 0.5f;
+        sr.color = newColor;
+        yield return new WaitForSeconds(damageCooldown);
+        isCollide = false;
+        newColor.a = 1f;
+        sr.color = newColor;
+    }
 
 
     IEnumerator Slide()
@@ -126,27 +131,24 @@ public class Player : MonoBehaviour
         isSliding = true;
 
         // 콜라이더 크기 줄이기 (슬라이딩 효과)
-        _collider.size = new Vector2(originalColliderSize.x /2 , originalColliderSize.y );
-        _collider.offset = new Vector2(originalColliderOffset.x, originalColliderOffset.y - (originalColliderSize.y / 4));
+        _collider.size = new Vector2(originalColliderSize.x , originalColliderSize.y / 2);
+        _collider.offset = new Vector2(originalColliderOffset.x, originalColliderOffset.y - (originalColliderSize.y / 8));
 
-        // 스프라이트 변경
-        _spriteRenderer.sprite = slideSprite;
-
+        
         yield return new WaitForSeconds(slideDuration); // 일정 시간 후 해제
 
         // 원래 크기로 복귀
         _collider.size = originalColliderSize;
         _collider.offset = originalColliderOffset;
 
-         // 원래 스프라이트로 복구
-        _spriteRenderer.sprite = normalSprite;
+        
 
         // 원래 스케일로 복구
         transform.localScale = originalScale;
 
         isSliding = false;
 
-        
+        animator.SetBool(IsSliding, false);
     }
 
 }

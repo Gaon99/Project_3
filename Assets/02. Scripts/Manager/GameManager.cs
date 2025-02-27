@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
+
 public class GameManager : MonoBehaviour
 {
     public float initSpeed = 3f; //최초 속도
@@ -35,10 +36,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        gameStart();
+        GameStart();
     }
 
-    public void gameStart()
+    public void GameStart()
     {
         health = initHealth;
         speed = initSpeed;
@@ -80,7 +81,6 @@ public class GameManager : MonoBehaviour
     {
         speed += sp;
         yield return new WaitForSeconds(3f);
-        Debug.Log("속도 감소");
         speed -= sp;
     }
 

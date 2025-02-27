@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 46987231}
   - component: {fileID: 46987230}
   m_Layer: 5
-  m_Name: CurrentScore
+  m_Name: CurrentScore_GO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,8 +291,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3424375, y: 0.36400002}
   m_AnchorMax: {x: 0.6558751, y: 0.59800005}
-  m_AnchoredPosition: {x: 1.5, y: 3.5}
-  m_SizeDelta: {x: -1, y: -3}
+  m_AnchoredPosition: {x: 14.001, y: 20.52}
+  m_SizeDelta: {x: -244.243, y: -128.676}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &46987230
 MonoBehaviour:
@@ -341,8 +341,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 250
-  m_fontSizeBase: 250
+  m_fontSize: 175
+  m_fontSizeBase: 175
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -811,7 +811,7 @@ GameObject:
   - component: {fileID: 730624130}
   - component: {fileID: 730624131}
   m_Layer: 5
-  m_Name: Lobby
+  m_Name: LobbyBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -880,19 +880,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 730624128}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 730624130}
-        m_TargetAssemblyTypeName: Button_, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &730624128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,7 +931,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179c36d66e5b31d4d85c91626fc7397e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneValue: LobbyScene
 --- !u!95 &730624131
 Animator:
   serializedVersion: 5
@@ -1154,6 +1141,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d798d1b09d15447aa7e96b7ff2f392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentScore: {fileID: 0}
+  firstScore: 0
+  secondScore: 0
+  thirdScore: 0
 --- !u!4 &1217893344
 Transform:
   m_ObjectHideFlags: 0
@@ -1169,6 +1160,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1522426615
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4409617879282241971, guid: 30f0dd47e2675784eb3bfe01d63391de, type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957147426094450099, guid: 30f0dd47e2675784eb3bfe01d63391de, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957147426094450099, guid: 30f0dd47e2675784eb3bfe01d63391de, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957147426094450099, guid: 30f0dd47e2675784eb3bfe01d63391de, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957147426094450099, guid: 30f0dd47e2675784eb3bfe01d63391de, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957147426094450099, guid: 30f0dd47e2675784eb3bfe01d63391de, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957147426094450099, guid: 30f0dd47e2675784eb3bfe01d63391de, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957147426094450099, guid: 30f0dd47e2675784eb3bfe01d63391de, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957147426094450099, guid: 30f0dd47e2675784eb3bfe01d63391de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957147426094450099, guid: 30f0dd47e2675784eb3bfe01d63391de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957147426094450099, guid: 30f0dd47e2675784eb3bfe01d63391de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 30f0dd47e2675784eb3bfe01d63391de, type: 3}
 --- !u!1 &2088507071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,7 +1232,7 @@ GameObject:
   - component: {fileID: 2088507076}
   - component: {fileID: 2088507077}
   m_Layer: 5
-  m_Name: Retry
+  m_Name: RetryBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1253,19 +1301,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2088507074}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2088507076}
-        m_TargetAssemblyTypeName: Button_, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2088507074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1316,7 +1352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179c36d66e5b31d4d85c91626fc7397e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneValue: MapScene
 --- !u!95 &2088507077
 Animator:
   serializedVersion: 5
@@ -1346,3 +1381,4 @@ SceneRoots:
   - {fileID: 434844080}
   - {fileID: 914736721}
   - {fileID: 1217893344}
+  - {fileID: 1522426615}

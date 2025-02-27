@@ -2,25 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;  // UI ��Ҹ� ����� �� UnityEngine.UI �ʿ�
 
 public class Button_ : MonoBehaviour
 {
-    public string SceneValue;
-    UIManager uiManager;
+    private void Awake()
 
-    private void Start()
     {
-        uiManager = UIManager.Instance;
+        InitButton("RetryBtn", "MapScene");
+        InitButton("LobbyBtn", "LobbyScene");
+        InitButton("LobbyPlayBtn", "MapScene");
     }
-    public void LoadScene()
+
+    public void LoadScene(string SceneValue)
     {
         SceneManager.LoadScene(SceneValue);
     }
 
-    public void SetTimer()
+    private Button InitButton(string btnName, string SceneValue)
     {
-        PlayerPrefs.SetFloat("CurrentScore", Time.time);
-        uiManager.UpdateValue();
+        Button btn = GameObject.Find(btnName)?.GetComponent<Button>();
+
+        if (btn != null)
+        {
+            btn.onClick.AddListener(() => LoadScene(SceneValue)); //LoadScene()�� ���� �� �̵�
+        }
+        return btn;
     }
 }
-
