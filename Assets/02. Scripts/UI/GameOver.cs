@@ -12,5 +12,6 @@ public class GameOver : MonoBehaviour
     {
         GameoverCanvas.SetActive(true);
         CurrentScore.text = GameManager.Instance.curScore.ToString();
+        UIManager.Instance.UpdateValue();
     }
 }
