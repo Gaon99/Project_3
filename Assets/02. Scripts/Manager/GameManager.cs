@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UIElements;
 
 
 public class GameManager : MonoBehaviour
@@ -46,8 +47,8 @@ public class GameManager : MonoBehaviour
         curScore = 0;
         isDead = false;
 
-        InvokeRepeating("SpeedUp", 1f, 1f); //주기적 속도 증가
-        InvokeRepeating("UpScore", 0.5f, 0.5f);
+        InvokeRepeating("SpeedUp", 2f, 2f); //주기적 속도 증가
+        InvokeRepeating("UpScore", 1f, 1f);
     }
 
     public void GameOver() //패배 시 최고 점수 기록
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
     public void CollisionObstacle() //장애물 충돌 시
     {
         health--;
-        speed /= 2;
+        speed = initSpeed;
         if (health <= 0)
         {
             isDead = true;
@@ -81,14 +82,16 @@ public class GameManager : MonoBehaviour
     {
         speed += sp;
         yield return new WaitForSeconds(3f);
-        speed -= sp;
+        if (speed-sp > initSpeed)
+            speed -= sp;
+        else speed = initSpeed;
     }
 
     void SpeedUp() // 속도 증가
     {
         if (isDead == false)
         {
-            speed += 1f; //Change Speed Temporary
+            speed += 0.1f; //Change Speed Temporary
         }
         else CancelInvoke("SpeedUp");
     }
