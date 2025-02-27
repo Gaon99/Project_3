@@ -18,7 +18,7 @@ public class Lobby : MonoBehaviour
         UpdateText();
     }
 
-    private void UpdateText()
+    private void UpdateText() // UIManager가 가지고 있는 점수 업데이트
     {
         UIManager.Instance.UpdateValue();
         FirstScore.text = UIManager.Instance.firstScore.ToString();

@@ -17,7 +17,12 @@ public class UIManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject); // 씬이 바뀌어도 유지
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneLoaded += OnSceneLoaded; // 씬이 로드 될때마다 OnSceneLoaded() 동작
+            if (HPManager.Instance != null)
+            {
+                HPManager.Instance.FindCanvas();
+                HPManager.Instance.CreateHPUI(); // HP UI 재생성
+            }
         }
         else
         {
@@ -29,6 +34,13 @@ public class UIManager : MonoBehaviour
         if (scene.name == "MapScene") // MapScene에서만 찾기
         {
             CurrentScore = GameObject.Find("CurrentScore")?.GetComponent<TextMeshProUGUI>();
+            GameManager.Instance.GameStart();
+            if (HPManager.Instance != null)
+            {
+                HPManager.Instance.FindCanvas();
+                HPManager.Instance.CreateHPUI(); // HP UI 재생성
+            }
+
         }
     }
     private void Start()
@@ -37,7 +49,7 @@ public class UIManager : MonoBehaviour
     }
     private void Update()
     {
-        if (CurrentScore != null) CurrentScore.text = GameManager.Instance.curScore.ToString();
+        if (CurrentScore != null) CurrentScore.text = GameManager.Instance.curScore.ToString(); //CurrentScore가 null이 아닐때만 업데이트
     }
 
     public void UpdateValue()
@@ -61,7 +73,7 @@ public class UIManager : MonoBehaviour
         GetValue();
     }
 
-    public void GetValue()
+    public void GetValue() // 1,2,3등 기록 최신화
     {
         firstScore = PlayerPrefs.GetFloat("FirstScore");
         secondScore = PlayerPrefs.GetFloat("SecondScore");
