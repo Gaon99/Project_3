@@ -21,7 +21,6 @@ public class Player : MonoBehaviour
 
     bool isSliding = false;
     bool isFlap = false;
-    bool isCollide = false;
     private float damageCooldown = 1f; // 데미지를 받을 간격
 
 
@@ -30,7 +29,7 @@ public class Player : MonoBehaviour
 
     Vector3 originalScale;  // 원래의 스케일을 저장할 변수
 
-
+    private float lastDamageTime = 0f;
     GameManager gameManager;
     Animator animator;
 
@@ -98,18 +97,16 @@ public class Player : MonoBehaviour
         
     }
 
-    
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            if (!isCollide)
-            {
-                isCollide = true;
-                gameManager.CollisionObstacle();
-                StartCoroutine(Collide());
-            }
- //           Debug.Log(collision.gameObject.name);
+            if (Time.time - lastDamageTime > damageCooldown)
+                {
+                    gameManager.CollisionObstacle();
+                    lastDamageTime = Time.time;
+                    StartCoroutine(Collide());
+                }
         }
     }
 
@@ -120,7 +117,6 @@ public class Player : MonoBehaviour
         newColor.a = 0.5f;
         sr.color = newColor;
         yield return new WaitForSeconds(damageCooldown);
-        isCollide = false;
         newColor.a = 1f;
         sr.color = newColor;
     }
