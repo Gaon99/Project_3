@@ -17,12 +17,6 @@ public class ObstacleSpawner : MonoBehaviour
     {
         StartCoroutine(SpawnObstacleGroup());
     }
-    enum Ypos
-    {
-        top = 3,
-        bottom = -7
-    }
-
     IEnumerator SpawnObstacleGroup()
     {
         while (true)
@@ -31,13 +25,9 @@ public class ObstacleSpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnRate);
 
             float spawnX = player.position.x + spawnDistance;
-            Vector2 spawnP = new Vector2(spawnX, 0);
-            int randY = Random.Range(0, 2);
-            if (randY == 0)
-                spawnP.y = (float)Ypos.bottom;
-            else spawnP.y = (float)Ypos.top;
             GameObject obstacle = objectPrefabs[Random.Range(0, objectPrefabs.Length)];
-            Instantiate(obstacle, spawnP, Quaternion.identity);
+            Vector2 spawnPosition = new Vector2(spawnX, obstacle.transform.position.y);
+            Instantiate(obstacle, spawnPosition, Quaternion.identity);
             
         }
        
