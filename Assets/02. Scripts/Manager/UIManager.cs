@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject); // 중복된 UIManager 삭제
         }
+        if (CurrentScore != null) CurrentScore.text = GameManager.Instance.curScore.ToString(); //CurrentScore가 null이 아닐때만 업데이트
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
