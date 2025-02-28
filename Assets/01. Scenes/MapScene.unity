@@ -519,32 +519,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1471414154}
-  - component: {fileID: 1471414153}
   - component: {fileID: 1471414155}
   m_Layer: 0
-  m_Name: TempManager
+  m_Name: HPManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1471414153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1471414152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5d798d1b09d15447aa7e96b7ff2f392, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentScore: {fileID: 0}
-  firstScore: 0
-  secondScore: 0
-  thirdScore: 0
-  currentScore: 0
 --- !u!4 &1471414154
 Transform:
   m_ObjectHideFlags: 0
