@@ -1141,10 +1141,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d798d1b09d15447aa7e96b7ff2f392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentScore: {fileID: 0}
+  CurrentScore: {fileID: 0}
   firstScore: 0
   secondScore: 0
   thirdScore: 0
+  currentScore: 0
 --- !u!4 &1217893344
 Transform:
   m_ObjectHideFlags: 0
