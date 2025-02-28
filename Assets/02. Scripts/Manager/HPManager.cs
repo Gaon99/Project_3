@@ -73,7 +73,7 @@ public class HPManager : MonoBehaviour
             if (rectTransform != null)
             {
                 rectTransform.localScale = Vector3.one;
-                rectTransform.anchoredPosition = new Vector2(i * 250, 0); // HP 좌측 정렬
+                rectTransform.anchoredPosition = new Vector2(i * 100, 0); // HP 좌측 정렬
             }
         }
     }
